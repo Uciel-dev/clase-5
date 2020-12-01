@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formulario de datos</title>
+</head>
+
+<body>
+    <center>
+        <h1>Bienvenido</h1>
+        <form onsubmit="return false;">
+            <input type="text" id="nombre-usuario" placeholder="Ingresa tu nombre completo"><br>
+            <input type="text" id="apellido-usuario" placeholder="Ingresa tu apellido"><br>
+            <input type="number" id="edad-usuario" placeholder="Ingresa tu edad"><br>
+
+            <button id="enviar">Enviar</button>
+        </form>
+
+        <div id="respuesta">
+            <h4>Esta es su informacion, verifique los datos ingresados:</h4>
+            <textarea name="text" id="datos-usuario" cols="30" rows="10" disabled></textarea>
+        </div>
+    </center>
+
+    <script src="form.js"></script>
+</body>
+
+</html>
