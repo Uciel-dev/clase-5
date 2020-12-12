@@ -8,66 +8,74 @@
 
 
 
-function convertir(number) {
+function convertSecondsToMinutes(number) {
     return number / 60;
 
 }
 
-function exedente(number) {
+function convertMinutesToHours(number) {
+    return number / 60;
+
+}
+
+function calculateRemainder(number) {
     return number % 60;
 }
 
-function validar(number) {
-    return number > 60;
-}
 
-function cantidadTotalDeTiempo(segundosList, minutosList, horasList) {
 
-    let tiempoTotal = [0, 0, 0];
+function elementsAccumulator(elementsList) {
 
-    for (let i = 0; i < segundosList.length; i++) {
+    let sumOfElements = 0;
 
-        tiempoTotal[0] += Number(segundosList[i].value)
-        tiempoTotal[1] += Number(minutosList[i].value)
-        tiempoTotal[2] += Number(horasList[i].value)
+    for (let i = 0; i < elementsList.length; i++) {
+
+        sumOfElements += Number(elementsList[i].value)
     }
-
-    return tiempoTotal
-
-}
-
-function corregirTiempoTotal(segundos, minutos, horas) {
-
-    if (validar(segundos)) {
-        minutos += parseInt(convertir(segundos))
-        segundos = exedente(segundos)
-    }
-    if (validar(minutos)) {
-        horas += parseInt(convertir(minutos))
-        minutos = exedente(minutos)
-    }
-
-    return [segundos, minutos, horas]
+    return sumOfElements
 }
 
 
-const $cantidadDeClases = document.querySelector('#calcular');
+
+// function corregirTiempoTotal(segundos, minutos, horas) {
+
+//     if (validar(segundos)) {
+//         minutos += parseInt(convertir(segundos))
+//         segundos = exedente(segundos)
+//     }
+//     if (validar(minutos)) {
+//         horas += parseInt(convertir(minutos))
+//         minutos = exedente(minutos)
+//     }
+
+//     return [segundos, minutos, horas]
+// }
 
 
-$cantidadDeClases.onclick = function() {
+const $calcularTimpoTotal = document.querySelector('#calcular');
 
-    const segundosList = document.querySelectorAll('.segundos');
-    const minutosList = document.querySelectorAll('.minutos');
-    const horasList = document.querySelectorAll('.horas');
 
-    //Se debe respertar el siguiente fotmato del array, (segundos[0], minutos[1],horas[2])
-    let cantidadTotal = cantidadTotalDeTiempo(segundosList, minutosList, horasList);
+$calcularTimpoTotal.onclick = function() {
 
-    let tiempoCorregido = corregirTiempoTotal(cantidadTotal[0], cantidadTotal[1], cantidadTotal[2]);
+    const secondsList = document.querySelectorAll('.segundos');
+    const minutesList = document.querySelectorAll('.minutos');
+    const hoursList = document.querySelectorAll('.horas');
 
-    let segundos = tiempoCorregido[0]
-    let minutos = tiempoCorregido[1]
-    let horas = tiempoCorregido[2]
+
+    let seconds = elementsAccumulator(secondsList)
+
+
+    let minutes = elementsAccumulator(minutesList)
+    minutes += convertSecondsToMinutes(seconds)
+
+    seconds = calculateRemainder(seconds)
+
+    let hours = elementsAccumulator(hoursList)
+    hours += convertMinutesToHours(minutes)
+
+
+
+
 
 
     document.querySelector('#tiempo-total-videos').innerHTML = `El tiempo total de clases es: ${horas}:${minutos}:${segundos}`;
