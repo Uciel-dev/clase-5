@@ -8,17 +8,13 @@
 
 
 
-function convertSecondsToMinutes(number) {
-    return number / 60;
+function convertToAHigherDegree(number) {
 
-}
-
-function convertMinutesToHours(number) {
-    return number / 60;
-
+    return parseInt(number / 60);
 }
 
 function calculateRemainder(number) {
+
     return number % 60;
 }
 
@@ -35,23 +31,10 @@ function elementsAccumulator(elementsList) {
     return sumOfElements
 }
 
+function calculateTotalTime(elementsList, number) {
 
-
-// function corregirTiempoTotal(segundos, minutos, horas) {
-
-//     if (validar(segundos)) {
-//         minutos += parseInt(convertir(segundos))
-//         segundos = exedente(segundos)
-//     }
-//     if (validar(minutos)) {
-//         horas += parseInt(convertir(minutos))
-//         minutos = exedente(minutos)
-//     }
-
-//     return [segundos, minutos, horas]
-// }
-
-
+    return elementsAccumulator(elementsList) + convertToAHigherDegree(number)
+}
 const $calcularTimpoTotal = document.querySelector('#calcular');
 
 
@@ -62,21 +45,16 @@ $calcularTimpoTotal.onclick = function() {
     const hoursList = document.querySelectorAll('.horas');
 
 
-    let seconds = elementsAccumulator(secondsList)
 
+    let seconds = calculateRemainder(elementsAccumulator(secondsList))
 
-    let minutes = elementsAccumulator(minutesList)
-    minutes += convertSecondsToMinutes(seconds)
+    let minutes = calculateRemainder(elementsAccumulator(minutesList))
 
-    seconds = calculateRemainder(seconds)
-
-    let hours = elementsAccumulator(hoursList)
-    hours += convertMinutesToHours(minutes)
+    let hours = calculateTotalTime(hoursList, calculateTotalTime(minutesList, elementsAccumulator(secondsList)))
 
 
 
 
 
-
-    document.querySelector('#tiempo-total-videos').innerHTML = `El tiempo total de clases es: ${horas}:${minutos}:${segundos}`;
+    document.querySelector('#tiempo-total-videos').innerHTML = `El tiempo total de clases es: ${hours}:${minutes}:${seconds}`;
 }
