@@ -6,16 +6,22 @@
 // al apretar el botón "Calcular tiempo total", debe mostrar en un
 // <strong> pre-creado el tiempo total de los videos.
 
+function secondsList() {
 
-
-function convertToAHigherDegree(number) {
-
-    return parseInt(number / 60);
+    const secondsList = document.querySelectorAll('.seconds')
+    return elementsAccumulator(secondsList)
 }
 
-function calculateRemainder(number) {
+function minutesList() {
 
-    return number % 60;
+    const minutesList = document.querySelectorAll('.minutes')
+    return elementsAccumulator(minutesList)
+}
+
+function hoursList() {
+
+    const minutesList = document.querySelectorAll('.hours')
+    return elementsAccumulator(minutesList)
 }
 
 
@@ -28,33 +34,32 @@ function elementsAccumulator(elementsList) {
 
         sumOfElements += Number(elementsList[i].value)
     }
+
     return sumOfElements
 }
 
-function calculateTotalTime(elementsList, number) {
-
-    return elementsAccumulator(elementsList) + convertToAHigherDegree(number)
+function showResults(seconds, minutes, hours) {
+    document.querySelector('#time-total-videos').innerHTML = `El tiempo total de clases es: ${hours}:${minutes}:${seconds}`;
 }
-const $calcularTimpoTotal = document.querySelector('#calcular');
+
+
+const $calcularTimpoTotal = document.querySelector('#calculate');
 
 
 $calcularTimpoTotal.onclick = function() {
 
-    const secondsList = document.querySelectorAll('.segundos');
-    const minutesList = document.querySelectorAll('.minutos');
-    const hoursList = document.querySelectorAll('.horas');
+    const secondsSum = secondsList()
+    const minutesSum = minutesList()
+    const hoursSum = hoursList()
+
+    const remainingSeconds = secondsSum % 60
+    const remainingMinutes = secondsSum % 60
+
+    const seconds = remainingSeconds
+    const minutes = remainingMinutes + parseInt(secondsSum / 60)
+    const hours = hoursSum + parseInt(minutesSum / 60)
 
 
 
-    let seconds = calculateRemainder(elementsAccumulator(secondsList))
-
-    let minutes = calculateRemainder(elementsAccumulator(minutesList))
-
-    let hours = calculateTotalTime(hoursList, calculateTotalTime(minutesList, elementsAccumulator(secondsList)))
-
-
-
-
-
-    document.querySelector('#tiempo-total-videos').innerHTML = `El tiempo total de clases es: ${hours}:${minutes}:${seconds}`;
+    showResults(seconds, minutes, hours)
 }
