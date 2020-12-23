@@ -6,19 +6,19 @@
 // al apretar el botón "Calcular tiempo total", debe mostrar en un
 // <strong> pre-creado el tiempo total de los videos.
 
-function secondsList() {
+function getTotalSeconds() {
 
     const secondsList = document.querySelectorAll('.seconds')
     return elementsAccumulator(secondsList)
 }
 
-function minutesList() {
+function getTotalMinutes() {
 
     const minutesList = document.querySelectorAll('.minutes')
     return elementsAccumulator(minutesList)
 }
 
-function hoursList() {
+function getTotalHours() {
 
     const minutesList = document.querySelectorAll('.hours')
     return elementsAccumulator(minutesList)
@@ -43,17 +43,17 @@ function showResults(seconds, minutes, hours) {
 }
 
 
-const $calcularTimpoTotal = document.querySelector('#calculate');
+const $calculateTotalTime = document.querySelector('#calculate');
 
 
-$calcularTimpoTotal.onclick = function() {
+$calculateTotalTime.onclick = function() {
 
-    const secondsSum = secondsList()
-    const minutesSum = minutesList()
-    const hoursSum = hoursList()
+    const secondsSum = getTotalSeconds()
+    const minutesSum = getTotalMinutes()
+    const hoursSum = getTotalHours()
 
     const remainingSeconds = secondsSum % 60
-    const remainingMinutes = secondsSum % 60
+    const remainingMinutes = minutesSum % 60
 
     const seconds = remainingSeconds
     const minutes = remainingMinutes + parseInt(secondsSum / 60)
